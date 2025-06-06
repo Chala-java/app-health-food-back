@@ -10,14 +10,22 @@ import java.math.BigDecimal;
 public class Producto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="productos")
+    @Column(name = "productos")
     private Integer id_producto;
-    @Column(name="nombre_productos", length = 100, nullable = false)
+    @Column(name = "nombre_productos", length = 100, nullable = false)
     private String nombre;
-    @Column(name="precio", nullable = false)
+    @Column(name = "precio", nullable = false)
     private BigDecimal precio;
-    @Column(name="descripcion",nullable = true)
+    @Column(name = "precio_descuento", nullable = false)
+    private BigDecimal precioDescuento;
+    @Column(name = "descripcion", nullable = true)
     private String descripcion;
+    @Column(name = "ubicacion", length = 200, nullable = false)
+    private String ubicacion;
+    @Column(name = "imagen_url", length = 500)
+    private String imagenUrl;
+
+
 
     @ManyToOne
     @JoinColumn(name = "fk_tienda", referencedColumnName = "id_restaurante")
@@ -32,11 +40,16 @@ public class Producto {
     public Producto() {
     }
 
-    public Producto(Integer id_producto, String nombre, BigDecimal precio, String descripcion) {
+    public Producto(Integer id_producto, String nombre, BigDecimal precio, BigDecimal precioDescuento, String descripcion, String ubicacion, String imagenUrl, Tienda tienda, Detalle detalle) {
         this.id_producto = id_producto;
         this.nombre = nombre;
         this.precio = precio;
+        this.precioDescuento = precioDescuento;
         this.descripcion = descripcion;
+        this.ubicacion = ubicacion;
+        this.imagenUrl = imagenUrl;
+        this.tienda = tienda;
+        this.detalle = detalle;
     }
 
     public Integer getId_producto() {
@@ -63,11 +76,51 @@ public class Producto {
         this.precio = precio;
     }
 
+    public BigDecimal getPrecioDescuento() {
+        return precioDescuento;
+    }
+
+    public void setPrecioDescuento(BigDecimal precioDescuento) {
+        this.precioDescuento = precioDescuento;
+    }
+
     public String getDescripcion() {
         return descripcion;
     }
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public String getUbicacion() {
+        return ubicacion;
+    }
+
+    public void setUbicacion(String ubicacion) {
+        this.ubicacion = ubicacion;
+    }
+
+    public String getImagenUrl() {
+        return imagenUrl;
+    }
+
+    public void setImagenUrl(String imagenUrl) {
+        this.imagenUrl = imagenUrl;
+    }
+
+    public Tienda getTienda() {
+        return tienda;
+    }
+
+    public void setTienda(Tienda tienda) {
+        this.tienda = tienda;
+    }
+
+    public Detalle getDetalle() {
+        return detalle;
+    }
+
+    public void setDetalle(Detalle detalle) {
+        this.detalle = detalle;
     }
 }

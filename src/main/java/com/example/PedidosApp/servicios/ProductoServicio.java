@@ -54,6 +54,9 @@ public class ProductoServicio {
                 productoBuscado.get().setNombre(datosProducto.getNombre());
                 productoBuscado.get().setPrecio(datosProducto.getPrecio());
                 productoBuscado.get().setDescripcion(datosProducto.getDescripcion());
+                productoBuscado.get().setPrecioDescuento(datosProducto.getPrecioDescuento());
+                productoBuscado.get().setUbicacion(datosProducto.getUbicacion());
+
                 return this.repositorio.save(productoBuscado.get());
             } else {
                 throw new Exception("El Producto consultado no esta en la BD");
