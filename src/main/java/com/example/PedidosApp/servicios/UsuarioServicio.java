@@ -4,6 +4,8 @@ import com.example.PedidosApp.modelos.Usuario;
 import com.example.PedidosApp.repositorios.IUsuarioRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 
 import java.util.List;
@@ -51,6 +53,16 @@ public class UsuarioServicio {
 
         }
     }
+
+    // Método para buscar usuario por correo electrónico
+    public Optional<Usuario> buscarPorCorreoElectronico(String correo) throws Exception {
+        try {
+            return this.repositorio.findByCorreoElectronico(correo);
+        } catch (Exception error) {
+            throw new Exception(error.getMessage());
+        }
+    }
+
 
     //Metodo para modificar por ID
     public Usuario modificarUsuario(Integer id, Usuario datosUsuario) throws Exception{

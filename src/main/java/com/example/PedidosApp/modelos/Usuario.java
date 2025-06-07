@@ -11,18 +11,18 @@ import java.util.List;
 public class Usuario {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario")
     private Integer id;
-    @Column(name="nombre_usuario", length=100, unique=true, nullable = false )
+    @Column(name = "nombre_usuario", length = 100, unique = true, nullable = false)
     private String nombre;
-    @Column(name="correo_usuario", length=150, unique=true, nullable = false )
+    @Column(name = "correo_usuario", length = 150, unique = true, nullable = false)
     private String correoElectronico;
-    @Column(name="contraseña_usuario", length=260, nullable = false)
-    private String contraseña;
-    @Column(name="telefono_usuario", length=260, nullable = true)
+    @Column(name = "contrasena_usuario", length = 260, nullable = false)
+    private String contrasena;
+    @Column(name = "telefono_usuario", length = 260, nullable = true)
     private String telefono;
-    @Column(name="tipo_usuario", nullable = false)
+    @Column(name = "tipo_usuario", nullable = false)
     @Enumerated(EnumType.STRING)
     private UsuarioEnum tipoUsuario;
 
@@ -32,18 +32,20 @@ public class Usuario {
 
     @OneToMany(mappedBy = "usuario")
     @JsonManagedReference(value = "pedidos-usuario")
-    private List<Pedido>pedidos;
+    private List<Pedido> pedidos;
 
     public Usuario() {
     }
 
-    public Usuario(Integer id, String nombre, String correoElectronico, String contraseña, String telefono, UsuarioEnum tipoUsuario) {
+    public Usuario(Integer id, String nombre, String correoElectronico, String contrasena, String telefono, UsuarioEnum tipoUsuario, List<Direccion> direcciones, List<Pedido> pedidos) {
         this.id = id;
         this.nombre = nombre;
         this.correoElectronico = correoElectronico;
-        this.contraseña = contraseña;
+        this.contrasena = contrasena;
         this.telefono = telefono;
         this.tipoUsuario = tipoUsuario;
+        this.direcciones = direcciones;
+        this.pedidos = pedidos;
     }
 
     public Integer getId() {
@@ -70,12 +72,12 @@ public class Usuario {
         this.correoElectronico = correoElectronico;
     }
 
-    public String getContraseña() {
-        return contraseña;
+    public String getContrasena() {
+        return contrasena;
     }
 
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 
     public String getTelefono() {
@@ -92,5 +94,21 @@ public class Usuario {
 
     public void setTipoUsuario(UsuarioEnum tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
+    }
+
+    public List<Direccion> getDirecciones() {
+        return direcciones;
+    }
+
+    public void setDirecciones(List<Direccion> direcciones) {
+        this.direcciones = direcciones;
+    }
+
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
     }
 }

@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/usuario")
 public class ControladorUsuario {
@@ -27,6 +29,39 @@ public class ControladorUsuario {
                     .body(error.getMessage());
         }
     }
+
+    // Método para logear usuario
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody Usuario login) {
+        try {
+            Optional<Usuario> usuarioEncontrado = this.usuarioServicio
+                    .buscarPorCorreoElectronico(login.getCorreoElectronico());
+
+            if (usuarioEncontrado.isPresent()) {
+                Usuario usuario = usuarioEncontrado.get();
+
+                if (usuario.getContrasena().equals(login.getContrasena())) {
+                    return ResponseEntity
+                            .status(HttpStatus.OK)
+                            .body(usuario);
+                } else {
+                    return ResponseEntity
+                            .status(HttpStatus.UNAUTHORIZED)
+                            .body("Contraseña incorrecta");
+                }
+            } else {
+                return ResponseEntity
+                        .status(HttpStatus.NOT_FOUND)
+                        .body("Correo electrónico no registrado");
+            }
+
+        } catch (Exception error) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(error.getMessage());
+        }
+    }
+
 
     // Buscar Todos
     @GetMapping
