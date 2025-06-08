@@ -1,5 +1,6 @@
 package com.example.PedidosApp.servicios;
 
+import com.example.PedidosApp.modelos.Producto;
 import com.example.PedidosApp.modelos.Tienda;
 import com.example.PedidosApp.repositorios.ITiendaRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,6 +65,22 @@ public class TiendaServicio {
             throw new Exception(error.getMessage());
         }
     }
+
+    public Tienda guardarTiendas(Tienda datosTiendas) throws Exception  {
+        try {
+            // ¡Aquí ocurre la magia!
+            if (datosTiendas.getProductos() != null) {
+                for (Producto producto : datosTiendas.getProductos()) {
+                    producto.setTienda(datosTiendas);
+                }
+            }
+
+            return this.repositorio.save(datosTiendas);
+        } catch (Exception error){
+            throw new Exception(error.getMessage());
+        }
+    }
+
 
     //Metodo para eliminar por ID
     public boolean eliminarTienda(Integer id) throws Exception{

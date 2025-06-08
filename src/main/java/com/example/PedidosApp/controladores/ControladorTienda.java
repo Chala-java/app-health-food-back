@@ -20,7 +20,7 @@ public class ControladorTienda {
         try {
            return ResponseEntity
            .status(HttpStatus.CREATED)
-           .body(this.tiendaServicio.guardarTienda(datosTienda));
+           .body(this.tiendaServicio.guardarTiendas(datosTienda));
         }catch(Exception error){
             return ResponseEntity
             .status(HttpStatus.BAD_REQUEST)

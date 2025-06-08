@@ -26,7 +26,6 @@ public class Producto {
     private String imagenUrl;
 
 
-
     @ManyToOne
     @JoinColumn(name = "fk_tienda", referencedColumnName = "id_restaurante")
     @JsonBackReference(value = "productos-tienda")

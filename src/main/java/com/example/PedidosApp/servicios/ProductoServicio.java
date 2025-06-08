@@ -68,6 +68,8 @@ public class ProductoServicio {
 
     }
 
+
+
     // Metodo para eliminar por ID
     public boolean eliminarProducto(Integer id) throws Exception {
         try{
