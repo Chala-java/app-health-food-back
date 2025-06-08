@@ -22,6 +22,7 @@ public class ProductoServicio {
         }
     }
 
+
     // Metodo buscar todos los registros
     public List<Producto> buscarTodosProductos() throws Exception {
         try {

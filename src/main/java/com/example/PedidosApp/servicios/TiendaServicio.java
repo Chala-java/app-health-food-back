@@ -16,13 +16,6 @@ public class TiendaServicio {
     ITiendaRepositorio repositorio;
 
     //Metodo Guardar
-    public Tienda guardarTienda(Tienda datosTienda) throws Exception  {
-        try {
-            return this.repositorio.save(datosTienda);
-        }catch (Exception error){
-            throw new Exception(error.getMessage());
-        }
-    }
 
     //Metodo para buscar todos los registros
     public List<Tienda> buscarTodosTiendas() throws Exception {
@@ -68,18 +61,20 @@ public class TiendaServicio {
 
     public Tienda guardarTiendas(Tienda datosTiendas) throws Exception  {
         try {
-            // ¡Aquí ocurre la magia!
-            if (datosTiendas.getProductos() != null) {
+            // Seteamos la tienda en cada producto para que tenga relación
+            if (datosTiendas.getProductos() != null && !datosTiendas.getProductos().isEmpty()) {
                 for (Producto producto : datosTiendas.getProductos()) {
                     producto.setTienda(datosTiendas);
                 }
             }
 
+            // Guardamos la tienda y los productos en cascada
             return this.repositorio.save(datosTiendas);
         } catch (Exception error){
-            throw new Exception(error.getMessage());
+            throw new Exception("Error guardando tienda con productos: " + error.getMessage());
         }
     }
+
 
 
     //Metodo para eliminar por ID

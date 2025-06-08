@@ -34,9 +34,10 @@ public class Tienda {
     @JsonManagedReference(value = "pedidos-tienda")
     private List<Pedido> pedidos;
 
-    @OneToMany(mappedBy = "tienda")
-   @JsonManagedReference(value = "productos-tienda")
+    @OneToMany(mappedBy = "tienda", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference(value = "productos-tienda")
     private List<Producto> productos;
+
 
     public Tienda() {
     }
