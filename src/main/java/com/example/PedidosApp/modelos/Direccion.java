@@ -17,9 +17,9 @@ public class Direccion {
     private String calle;
     @Column(name="ciudad", length=100, nullable = false)
     private String ciudad;
-    @Column(name="codigo_postal", length=20, nullable = false)
+    @Column(name="codigo_postal", length=20, nullable = true)
     private String codigo_postal;
-    @Column(name="pais", length=50, nullable = false)
+    @Column(name="pais", length=50, nullable = true)
     private String pais;
 
     @ManyToOne
@@ -30,12 +30,13 @@ public class Direccion {
     public Direccion() {
     }
 
-    public Direccion(Integer id_direccion, String calle, String ciudad, String codigo_postal, String pais) {
+    public Direccion(Integer id_direccion, String calle, String ciudad, String codigo_postal, String pais, Usuario usuario) {
         this.id_direccion = id_direccion;
         this.calle = calle;
         this.ciudad = ciudad;
         this.codigo_postal = codigo_postal;
         this.pais = pais;
+        this.usuario = usuario;
     }
 
     public Integer getId_direccion() {
@@ -76,5 +77,13 @@ public class Direccion {
 
     public void setPais(String pais) {
         this.pais = pais;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }

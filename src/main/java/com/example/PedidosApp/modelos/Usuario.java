@@ -34,10 +34,16 @@ public class Usuario {
     @JsonManagedReference(value = "pedidos-usuario")
     private List<Pedido> pedidos;
 
+    @OneToMany(mappedBy = "usuario")
+    @JsonManagedReference(value = "tarjetas-usuario")
+    private List<Tarjeta> tarjetas ;
+
+
+
     public Usuario() {
     }
 
-    public Usuario(Integer id, String nombre, String correoElectronico, String contrasena, String telefono, UsuarioEnum tipoUsuario, List<Direccion> direcciones, List<Pedido> pedidos) {
+    public Usuario(Integer id, String nombre, String correoElectronico, String contrasena, String telefono, UsuarioEnum tipoUsuario, List<Direccion> direcciones, List<Pedido> pedidos, List<Tarjeta> tarjetas) {
         this.id = id;
         this.nombre = nombre;
         this.correoElectronico = correoElectronico;
@@ -46,6 +52,7 @@ public class Usuario {
         this.tipoUsuario = tipoUsuario;
         this.direcciones = direcciones;
         this.pedidos = pedidos;
+        this.tarjetas = tarjetas;
     }
 
     public Integer getId() {
@@ -110,5 +117,13 @@ public class Usuario {
 
     public void setPedidos(List<Pedido> pedidos) {
         this.pedidos = pedidos;
+    }
+
+    public List<Tarjeta> getTarjetas() {
+        return tarjetas;
+    }
+
+    public void setTarjetas(List<Tarjeta> tarjetas) {
+        this.tarjetas = tarjetas;
     }
 }
