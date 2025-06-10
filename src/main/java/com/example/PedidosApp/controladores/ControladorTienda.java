@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/tienda")
@@ -116,4 +117,36 @@ public class ControladorTienda {
                     .body(error.getMessage());
         }
     }
+
+    @PostMapping("/login-tienda")
+    public ResponseEntity<?> loginTienda(@RequestBody Tienda login) {
+        try {
+            Optional<Tienda> tiendaEncontrada = this.tiendaServicio
+                    .buscarPorCorreo(login.getCorreoElectronico());
+
+            if (tiendaEncontrada.isPresent()) {
+                Tienda tienda = tiendaEncontrada.get();
+
+                if (tienda.getContrasena().equals(login.getContrasena())) {
+                    return ResponseEntity
+                            .status(HttpStatus.OK)
+                            .body(tienda); // Devuelve toda la info del restaurante
+                } else {
+                    return ResponseEntity
+                            .status(HttpStatus.UNAUTHORIZED)
+                            .body("Contraseña incorrecta");
+                }
+            } else {
+                return ResponseEntity
+                        .status(HttpStatus.NOT_FOUND)
+                        .body("Correo no registrado");
+            }
+
+        } catch (Exception error) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(error.getMessage());
+        }
+    }
+
 }

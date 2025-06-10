@@ -4,7 +4,12 @@ import com.example.PedidosApp.modelos.Producto;
 import com.example.PedidosApp.modelos.Tienda;
 import com.example.PedidosApp.repositorios.ITiendaRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -104,6 +109,8 @@ public class TiendaServicio {
                 tiendaExistente.setLogoUrl(datosTienda.getLogoUrl());
                 tiendaExistente.setPortadaUrl(datosTienda.getPortadaUrl());
                 tiendaExistente.setCategorias(datosTienda.getCategorias());
+                tiendaExistente.setContrasena(datosTienda.getContrasena());
+                tiendaExistente.setCorreoElectronico(datosTienda.getCorreoElectronico());
 
                 // Actualizar productos si se proporcionan
                 if (datosTienda.getProductos() != null) {
@@ -140,4 +147,15 @@ public class TiendaServicio {
             throw new Exception(error.getMessage());
         }
     }
+
+    public Optional<Tienda> buscarPorCorreo(String correoElectronico) throws Exception {
+        try {
+            return this.repositorio.findByCorreoElectronico(correoElectronico);
+        } catch (Exception e) {
+            throw new Exception("Error al buscar la tienda por correo: " + e.getMessage());
+        }
+    }
+
+
+
 }

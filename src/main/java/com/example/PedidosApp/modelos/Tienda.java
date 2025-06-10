@@ -10,26 +10,31 @@ import java.util.List;
 @Table(name="Restaurante")
 public class Tienda {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_restaurante")
     private Integer id_restaurante;
-    @Column(name="nombre_restaurante", length=100, unique=true, nullable = false )
+    @Column(name = "nombre_restaurante", length = 100, unique = true, nullable = false)
     private String nombre;
-    @Column(name="direccion_restaurante", length = 255, nullable = false)
+    @Column(name = "direccion_restaurante", length = 255, nullable = false)
     private String direccion;
-    @Column(name="telefono_restaurante", length = 20, nullable = false)
+    @Column(name = "telefono_restaurante", length = 20, nullable = false)
     private String telefono;
-    @Column(name="categoria", length = 100, nullable = false)
+    @Column(name = "categoria", length = 100, nullable = false)
     private String categoria;
-    @Column(name="logo_url", length = 500, nullable = false)
+    @Column(name = "logo_url", length = 500, nullable = false)
     private String logoUrl;
-    @Column(name="portada_url", length = 500, nullable = false)
+    @Column(name = "portada_url", length = 500, nullable = false)
     private String portadaUrl;
+    @Column(name = "correo_tienda", length = 150, unique = true, nullable = false)
+    private String correoElectronico;
 
-    @Column(name="categorias",length=50, nullable = true)
+    @Column(name = "contrasena_tienda", length = 260, nullable = false)
+    private String contrasena;
+
+
+    @Column(name = "categorias", length = 50, nullable = true)
     @Enumerated(EnumType.STRING)
     private RestauranteEnum Categorias;
-
     @OneToMany(mappedBy = "tienda")
     @JsonManagedReference(value = "pedidos-tienda")
     private List<Pedido> pedidos;
@@ -42,7 +47,7 @@ public class Tienda {
     public Tienda() {
     }
 
-    public Tienda(Integer id_restaurante, String nombre, String direccion, String telefono, String categoria, String logoUrl, String portadaUrl, RestauranteEnum categorias, List<Pedido> pedidos, List<Producto> productos) {
+    public Tienda(Integer id_restaurante, String nombre, String direccion, String telefono, String categoria, String logoUrl, String portadaUrl, String correoElectronico, String contrasena, RestauranteEnum categorias, List<Pedido> pedidos, List<Producto> productos) {
         this.id_restaurante = id_restaurante;
         this.nombre = nombre;
         this.direccion = direccion;
@@ -50,6 +55,8 @@ public class Tienda {
         this.categoria = categoria;
         this.logoUrl = logoUrl;
         this.portadaUrl = portadaUrl;
+        this.correoElectronico = correoElectronico;
+        this.contrasena = contrasena;
         Categorias = categorias;
         this.pedidos = pedidos;
         this.productos = productos;
@@ -109,6 +116,22 @@ public class Tienda {
 
     public void setPortadaUrl(String portadaUrl) {
         this.portadaUrl = portadaUrl;
+    }
+
+    public String getCorreoElectronico() {
+        return correoElectronico;
+    }
+
+    public void setCorreoElectronico(String correoElectronico) {
+        this.correoElectronico = correoElectronico;
+    }
+
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 
     public RestauranteEnum getCategorias() {
